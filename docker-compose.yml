@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: clean-prog
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    ports:
+      - "8002:8000"
+
+    volumes:
+      # убери, если НЕ нужен hot-reload и код не должен меняться в контейнере
+      - .:/app
+
+    command: >
+      uvicorn common.api:app
+      --host 0.0.0.0
+      --port 8002
+
+    # если будет нехватка shared memory (torch / catboost)
+    shm_size: "1gb"

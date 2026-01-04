@@ -1,0 +1,75 @@
+# Environment variables (NEVER commit API keys!)
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.env
+
+.git-token
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Data files (too large for git)
+data/
+*.csv
+*.parquet
+*.pickle
+*.pkl
+
+# Model files (too large)
+*.h5
+*.pt
+*.pth
+*.onnx
+saved_models/
+
+# CatBoost
+catboost_info/
+
+# Predictions (regenerated daily)
+predictions/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Poetry
+poetry.lock
+
+# Logs
+*.log
+logs/
