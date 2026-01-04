@@ -7,7 +7,6 @@ import requests
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
-from catboost import CatBoostRegressor
 from xgboost import XGBRegressor
 
 from common.ml_helper import CustomForecaster
