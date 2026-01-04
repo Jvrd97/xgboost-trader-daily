@@ -64,16 +64,16 @@ def get_data_path(ticker: str, interval: str, base_path: Path = BASE_DATA_PATH) 
 # ==========================================
 
 
-file_to_read = BASE_CONCAT_PATH / "D" / "BTC" / "BTC_D_concat.csv"
-df = pd.read_csv(file_to_read)
 
-days_back = back_days(df)
+
+
+
 # Make production look ticks 
 
 
-TICKER = "BTC"       # e.g., "WLD", "BTC", "ETH"
-INTERVAL = "D"      # "60" (Hourly) or "D" (Daily)
-LOOKBACK_DAYS = days_back  # How far back to fetch
+TICKER = ""       # e.g., "WLD", "BTC", "ETH"
+INTERVAL = ""      # "60" (Hourly) or "D" (Daily)
+LOOKBACK_DAYS = ""  # How far back to fetch
 # ==========================================
 
 
