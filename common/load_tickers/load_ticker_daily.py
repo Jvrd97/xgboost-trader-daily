@@ -61,18 +61,12 @@ def get_data_path(ticker: str, interval: str, base_path: Path = BASE_DATA_PATH) 
 
 # ==========================================
 # USER SETTINGS
-# ==========================================
-
-
-
-
-
 
 # Make production look ticks 
 
 
 TICKER = ""       # e.g., "WLD", "BTC", "ETH"
-INTERVAL = ""      # "60" (Hourly) or "D" (Daily)
+INTERVAL = "D"     # "60" (Hourly) or "D" (Daily)
 LOOKBACK_DAYS = ""  # How far back to fetch
 # ==========================================
 
