@@ -6,6 +6,10 @@ from dotenv import load_dotenv
 
 from common.ccxt.bybit_client import BybitTrader
 from common.path_man import *
+from common.load_tickers.load_ticker_names import *
+
+altcoins_small = load_ticker_small()
+altcoins_normall = load_ticker_normall()
 
 load_dotenv()
 
@@ -110,7 +114,11 @@ def execute_trade_signal(ticker: str, interval: str, usdt_amount: float = 100.0,
         print(f"   PnL: ${position['unrealized_pnl']:.2f}")
     
     # Calculate position size
-    contracts = trader.calculate_position_size(symbol, usdt_amount)
+
+    if ticker in altcoins_normall:
+        contracts = trader.calculate_position_size(symbol, usdt_amount)
+    if ticker in altcoins_small:    
+         contracts = trader.calculate_position_size_small(symbol, usdt_amount)
     current_price = trader.get_current_price(symbol)
     
     print(f"\n📊 Market Info:")

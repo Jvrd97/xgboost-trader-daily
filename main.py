@@ -13,14 +13,22 @@ load_dotenv()
 from common.load_tickers.load_ticker_daily import fetch_and_update_ticker
 from models.retrain.daily.BTC.BTC_D import btc_daily_train
 from common.trade_pipeline import execute_trade_signal
+from common.ccxt.position_to_trade import *
+from common.load_tickers.load_ticker_names import *
 
+
+altcoins_small = load_ticker_small()
+altcoins_normall = load_ticker_normall()
 
 # ============================================================
 # CONFIGURATION
 # ============================================================
 TICKER = "WLD"           # Trading ticker
-INTERVAL = "D"           # Time interval (D = Daily)
-TRADE_AMOUNT = 30  # USDT per trade, we have 10x leverage 
+INTERVAL = "D"
+if TICKER in altcoins_normall:     # Time interval (D = Daily)
+    TRADE_AMOUNT = to_trade_fixed_normal()
+if TICKER in altcoins_small:
+    TRADE_AMOUNT = to_trade_fixed_small()   # USDT per trade, we have 10x leverage 
 USE_TESTNET = False      # True = Testnet, False = Mainnet (BE CAREFUL!)
 
 # ============================================================

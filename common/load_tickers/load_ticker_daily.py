@@ -63,6 +63,7 @@ def get_data_path(ticker: str, interval: str, base_path: Path = BASE_DATA_PATH) 
 # USER SETTINGS
 # ==========================================
 
+
 file_to_read = BASE_CONCAT_PATH / "D" / "BTC" / "BTC_D_concat.csv"
 df = pd.read_csv(file_to_read)
 
@@ -75,8 +76,8 @@ INTERVAL = "D"      # "60" (Hourly) or "D" (Daily)
 LOOKBACK_DAYS = days_back  # How far back to fetch
 # ==========================================
 
-paths = get_data_path(TICKER, INTERVAL)
 
+paths = get_data_path(TICKER, INTERVAL)
 # --- Logic to determine Environment Variable and Path ---
 # Map Interval to the Key used in your .env file (60 -> H, D -> D)
 if str(INTERVAL) == "60":
@@ -206,9 +207,33 @@ def fetch_and_update_ticker(ticker: str, interval: str) -> pd.DataFrame:
     file_to_read = BASE_CONCAT_PATH / interval / ticker / f"{ticker}_{interval}_concat.csv"
     
     if not file_to_read.exists():
+
         print(f"✗ Concat file not found: {file_to_read}")
-        return pd.DataFrame()
+        fallback_folder = BASE_CONCAT_PATH / interval / ticker
+        fallback_name = f"{ticker}_{interval}_concat.csv"
+        print(f"downloading file into {fallback_folder}")
+        fall_back_days = 365 * 4
+        # Fallbaack
+        end_ts_full = int(time.time() * 1000)
+        start_ts_full = end_ts_full - (fall_back_days * 24 * 60 * 60 * 1000)
+        config2 = {
+        'symbol': f'{ticker}USDT',
+        'category': 'linear',
+        'interval': str(interval)
+    }        
+        fetcher2 = DataFetcher(symbol=config2['symbol'], category=config2['category'])
+
+        
+
+        df_new_full = fetcher2.fetch_bybit_klines(
+        interval=config2['interval'],
+        start=start_ts_full,
+        end=end_ts_full
+    )
+        fetcher2.save_csv(df_new_full, fallback_folder,fallback_name )
     
+    file_to_read = BASE_CONCAT_PATH / interval / ticker / f"{ticker}_{interval}_concat.csv"
+
     df_existing = pd.read_csv(file_to_read)
     days_back = back_days(df_existing)
     
